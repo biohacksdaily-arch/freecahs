@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Get Paid to Scroll</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0c0c12;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      padding: 0 20px 52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    #page-main { display: none; }
+
+    /* ══ Logo row ══ */
+    .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding-top: 48px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Each logo gets a coloured halo via a pseudo-element */
+    .logo-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -14px;
+      border-radius: 50%;
+      filter: blur(22px);
+      opacity: 0.65;
+      z-index: 0;
+    }
+    .logo-wrap.tiktok-wrap::before {
+      background: radial-gradient(circle, #ff2d55 0%, transparent 70%);
+    }
+    .logo-wrap.freecash-wrap::before {
+      background: radial-gradient(circle, #3dff8f 0%, transparent 70%);
+    }
+
+    .logo-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .logo-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .logo-icon.tiktok {
+      background: #000;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.10), 0 6px 20px rgba(0,0,0,0.7);
+    }
+    .logo-icon.freecash {
+      background: #1a2b2e;
+      box-shadow: 0 0 0 1px rgba(61,255,143,0.25), 0 6px 20px rgba(0,0,0,0.5);
+    }
+    .logo-x {
+      font-size: 20px;
+      font-weight: 600;
+      color: #5a6070;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ══ Prelander headline ══ */
+    #page-pre .headline {
+      font-size: 58px;
+      font-weight: 900;
+      line-height: 1.0;
+      text-align: center;
+      letter-spacing: -2px;
+      margin-top: 32px;
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(160deg, #ffffff 30%, #3dff8f 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    #page-pre .subline {
+      font-size: 15px;
+      color: #7a8296;
+      text-align: center;
+      line-height: 1.6;
+      margin-top: 18px;
+      max-width: 340px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ══ Bonus box ══ */
+    .bonus-box-wrap {
+      width: 100%;
+      margin-top: 28px;
+      position: relative;
+      z-index: 2;
+    }
+    /* green glow behind the box — all sides */
+    .bonus-box-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -28px;
+      border-radius: 36px;
+      background: rgba(61,255,143,0.13);
+      filter: blur(22px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes shimmer-sweep {
+      0%   { left: -80%; }
+      50%  { left: 130%; }
+      100% { left: -80%; }
+    }
+    @keyframes border-pulse {
+      0%, 100% { border-color: rgba(61,255,143,0.55); }
+      50%       { border-color: rgba(61,255,143,0.90); }
+    }
+
+    .bonus-box {
+      width: 100%;
+      background: linear-gradient(135deg, #0e1f14 0%, #0c1810 50%, #0e1a12 100%);
+      border: 1.5px solid rgba(61,255,143,0.45);
+      border-radius: 16px;
+      padding: 20px 24px;
+      overflow: hidden;
+      box-shadow: 0 0 28px rgba(61,255,143,0.10), inset 0 1px 0 rgba(61,255,143,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 6px;
+      position: relative;
+      z-index: 1;
+    }
+    .bonus-sweep {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-radius: 14px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bonus-sweep::after {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: -80%;
+      width: 45%;
+      height: 120%;
+      background: linear-gradient(
+        105deg,
+        transparent 20%,
+        rgba(61,255,143,0.08) 40%,
+        rgba(61,255,143,0.22) 50%,
+        rgba(61,255,143,0.08) 60%,
+        transparent 80%
+      );
+      transform: skewX(-15deg);
+      animation: shimmer-sweep 7s ease-in-out infinite;
+    }
+
+    .bonus-main-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    .bonus-box .gift-icon { font-size: 26px; line-height: 1; }
+    .bonus-text-main {
+      font-size: 20px;
+      font-weight: 800;
+      color: #3dff8f;
+    }
+    .bonus-text-sub {
+      font-size: 11px;
+      font-weight: 700;
+      color: #5a6478;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ══ Button stack with green glow behind green btn ══ */
+    .btn-stack {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 22px;
+      position: relative;
+      z-index: 2;
+    }
+    /* Green glow bloomed behind the green button */
+    .btn-stack::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 80px;
+      background: radial-gradient(ellipse, rgba(61,255,143,0.30) 0%, transparent 70%);
+      filter: blur(18px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .btn-green {
+      display: block;
+      width: 100%;
+      background: #3dff8f;
+      border: none;
+      border-radius: 16px;
+      padding: 20px 24px;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 28px rgba(61,255,143,0.35), 0 4px 16px rgba(0,0,0,0.3);
+      transition: filter 0.15s, transform 0.1s;
+      position: relative;
+      z-index: 1;
+    }
+    .btn-green:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn-green .btn-title { font-size: 18px; font-weight: 800; color: #071a0e; display: block; }
+    .btn-green .btn-sub   { font-size: 13px; font-weight: 500; color: rgba(7,26,14,0.60); display: block; margin-top: 4px; }
+
+    .btn-dark {
+      display: block;
+      width: 100%;
+      background: #141420;
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px 24px;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+      position: relative;
+      z-index: 1;
+    }
+    .btn-dark:hover { background: #1a1a28; }
+    .btn-dark .btn-title { font-size: 18px; font-weight: 800; color: #fff; display: block; }
+    .btn-dark .btn-sub   { font-size: 13px; font-weight: 500; color: #5a6478; display: block; margin-top: 4px; }
+
+    /* ══ Main page ══ */
+    #page-main .logo-row { padding-top: 30px; }
+    #page-main .logo-icon { width: 68px; height: 68px; border-radius: 18px; }
+    #page-main .logo-wrap::before { inset: -12px; filter: blur(18px); }
+    #page-main .logo-x { font-size: 18px; }
+
+    .main-headline-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 22px;
+      position: relative;
+      z-index: 2;
+    }
+    .check-circle {
+      width: 52px; height: 52px;
+      background: #3dff8f;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 32px rgba(61,255,143,0.45);
+    }
+    .check-circle svg { width: 30px; height: 30px; }
+
+    .main-headline {
+      font-size: 48px;
+      font-weight: 900;
+      text-align: center;
+      margin-top: 0;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+      color: #3dff8f;
+      position: relative;
+      z-index: 2;
+    }
+    .main-sub {
+      font-size: 15px;
+      color: #7a8296;
+      text-align: center;
+      line-height: 1.6;
+      margin-top: 12px;
+      max-width: 360px;
+      position: relative;
+      z-index: 2;
+    }
+    .main-sub strong { color: #3dff8f; }
+
+    @keyframes btn-pulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.35);
+        opacity: 1;
+      }
+    }
+
+    /* Download button with glow */
+    .dl-wrap {
+      width: 100%;
+      position: relative;
+      margin-top: 24px;
+      z-index: 2;
+    }
+    .dl-wrap::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%;
+      height: 70px;
+      background: radial-gradient(ellipse, rgba(61,255,143,0.45) 0%, transparent 70%);
+      filter: blur(22px);
+      pointer-events: none;
+      z-index: 0;
+      animation: btn-pulse 2.4s ease-in-out infinite;
+    }
+    .download-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: #3dff8f;
+      border: none;
+      border-radius: 16px;
+      padding: 20px 24px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 28px rgba(61,255,143,0.35), 0 4px 16px rgba(0,0,0,0.3);
+      transition: filter 0.15s, transform 0.1s;
+      position: relative;
+      z-index: 1;
+    }
+    .download-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .download-btn svg { width: 22px; height: 22px; fill: none; flex-shrink: 0; }
+    .download-btn span { font-size: 15px; font-weight: 800; color: #071a0e; letter-spacing: 0.5px; text-transform: uppercase; }
+
+    .typical {
+      font-size: 12px;
+      color: #5a6478;
+      text-align: center;
+      margin-top: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .journey-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: #5a6478;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 34px;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .steps {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+    .step-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .step-row:last-child { border-bottom: none; }
+    .step-num-circle {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: #3dff8f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 900;
+      color: #071a0e;
+      flex-shrink: 0;
+      margin-top: 2px;
+      box-shadow: 0 0 14px rgba(61,255,143,0.30);
+    }
+    .step-title { font-size: 15px; font-weight: 800; color: #fff; }
+    .step-desc  { font-size: 13px; color: #5a6478; margin-top: 4px; line-height: 1.5; }
+
+    .activation-box {
+      width: 100%;
+      background: #141420;
+      border: 1.5px solid #e8483a;
+      border-radius: 16px;
+      padding: 18px;
+      margin-top: 24px;
+      position: relative;
+      z-index: 2;
+    }
+    .activation-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .lock-icon { font-size: 18px; }
+    .activation-title { font-size: 16px; font-weight: 800; color: #fff; }
+    .important-badge {
+      margin-left: auto;
+      background: #e8483a;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    .activation-text { font-size: 13px; color: #7a8296; line-height: 1.55; }
+    .activation-text strong { color: #fff; }
+
+    .trusted {
+      font-size: 12px;
+      color: #5a6478;
+      text-align: center;
+      margin-top: 28px;
+      position: relative;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════ PRELANDER ══════════════ -->
+  <div class="page" id="page-pre">
+
+    <div class="logo-row">
+      <div class="logo-wrap tiktok-wrap">
+        <div class="logo-icon tiktok">
+          <img src="tik-tok-logo_578229-290.jpg.avif" alt="TikTok" />
+        </div>
+      </div>
+      <span class="logo-x">×</span>
+      <div class="logo-wrap freecash-wrap">
+        <div class="logo-icon freecash">
+          <img src="images.jpeg" alt="Freecash" />
+        </div>
+      </div>
+    </div>
+
+    <h1 class="headline">Get Paid to<br/>Scroll</h1>
+    <p class="subline">Join thousands earning daily by playing games, doing tasks and cashing out instantly.</p>
+
+    <div class="bonus-box-wrap">
+      <div class="bonus-box">
+        <div class="bonus-sweep"></div>
+        <div class="bonus-main-row">
+          <span class="gift-icon">🎁</span>
+          <div class="bonus-text-main">$10 Sign-Up Bonus</div>
+        </div>
+        <div class="bonus-text-sub">Free when you download today</div>
+      </div>
+    </div>
+
+    <div class="btn-stack">
+      <a href="#" class="btn-green" id="btn-over21">
+        <span class="btn-title">I'm over 21</span>
+        <span class="btn-sub">Instant Payouts: PayPal, CashApp, Venmo, Crypto &amp; Wire</span>
+      </a>
+      <a href="#" class="btn-dark" id="btn-under21">
+        <span class="btn-title">I'm under 21</span>
+        <span class="btn-sub">Limited Payouts: Wire Transfer Only</span>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- ══════════════ MAIN PAGE ══════════════ -->
+  <div class="page" id="page-main">
+
+    <div class="logo-row">
+      <div class="logo-wrap tiktok-wrap">
+        <div class="logo-icon tiktok">
+          <img src="tik-tok-logo_578229-290.jpg.avif" alt="TikTok" />
+        </div>
+      </div>
+      <span class="logo-x">×</span>
+      <div class="logo-wrap freecash-wrap">
+        <div class="logo-icon freecash">
+          <img src="images.jpeg" alt="Freecash" />
+        </div>
+      </div>
+    </div>
+
+    <div class="main-headline-row">
+      <div class="check-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#071a0e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h1 class="main-headline">You're In!</h1>
+    </div>
+    <p class="main-sub">Your account is pre-qualified for higher payouts. Download the app to activate your <strong>$10 bonus</strong> and full access.</p>
+
+    <div class="dl-wrap">
+      <a href="https://giftclick.org/aff_c?offer_id=3819&aff_id=12808" target="_blank" class="download-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#071a0e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M7 11l5 5 5-5M4 19h16"/></svg>
+        <span>Download Now — Claim $10 Bonus</span>
+      </a>
+    </div>
+
+    <p class="typical">Typical users make $50 after completing a few deals</p>
+
+    <p class="journey-label">Your Earning Journey</p>
+
+    <div class="steps">
+      <div class="step-row">
+        <div class="step-num-circle">1</div>
+        <div>
+          <div class="step-title">Download &amp; Get Your $10 Bonus</div>
+          <div class="step-desc">Available on iOS &amp; Android – Takes less than 60 seconds</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num-circle">2</div>
+        <div>
+          <div class="step-title">Complete Daily Offers</div>
+          <div class="step-desc">Watch Netflix, scroll TikTok, while testing apps &amp; games, or taking surveys!</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num-circle">3</div>
+        <div>
+          <div class="step-title">Cash Out Your Earnings</div>
+          <div class="step-desc">Instant Payouts: PayPal, CashApp, Venmo, Crypto &amp; Wire</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="activation-box">
+      <div class="activation-header">
+        <span class="lock-icon">🔒</span>
+        <span class="activation-title">Activation Required</span>
+        <span class="important-badge">! Important</span>
+      </div>
+      <p class="activation-text">New users: Complete <strong>2 quick offers</strong> to unlock full access and start earning.</p>
+    </div>
+
+    <p class="trusted">Trusted by over 500,000 users earning money daily</p>
+
+  </div>
+
+  <script>
+    function goToMain(e) {
+      e.preventDefault();
+      document.getElementById('page-pre').style.display = 'none';
+      document.getElementById('page-main').style.display = 'flex';
+      window.scrollTo(0, 0);
+    }
+    document.getElementById('btn-over21').addEventListener('click', goToMain);
+    document.getElementById('btn-under21').addEventListener('click', goToMain);
+  </script>
+
+</body>
+</html>
