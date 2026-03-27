@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Gamepad2, DollarSign, Check, Download, Lock } from "lucide-react";
+import { Check, Download, Lock } from "lucide-react";
+import Image from "next/image";
 
 export default function LandingPage() {
   const [step, setStep] = useState<"initial" | "confirmed">("initial");
@@ -13,14 +14,14 @@ export default function LandingPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] flex flex-col items-center px-4 py-12">
       {/* Logo Section */}
-      <div className="flex items-center gap-3 mb-8">
-        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/20">
-          <Gamepad2 className="w-10 h-10 text-white" />
-        </div>
-        <span className="text-gray-500 text-2xl">x</span>
-        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center shadow-lg shadow-green-500/20">
-          <DollarSign className="w-10 h-10 text-white" />
-        </div>
+      <div className="mb-8">
+        <Image
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-j8wq0BI746YmlyM0h9KiqSOF9GUz2w.png"
+          alt="FreeCash Logo"
+          width={80}
+          height={80}
+          className="rounded-2xl"
+        />
       </div>
 
       {/* Headline */}
@@ -44,7 +45,7 @@ export default function LandingPage() {
       <div className="w-full max-w-md bg-[#111] border border-gray-800 rounded-2xl p-5 mb-4 text-center">
         <div className="flex items-center justify-center gap-2 mb-1">
           <span className="text-2xl">🎁</span>
-          <span className="text-green-400 font-bold text-xl">€10 Aanmeldbonus</span>
+          <span className="text-green-400 font-bold text-xl">€20 Aanmeldbonus</span>
         </div>
         <p className="text-gray-500 text-sm uppercase tracking-wide">
           Gratis bij download vandaag
@@ -81,14 +82,14 @@ function ConfirmedStep() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] flex flex-col items-center px-4 py-12">
       {/* Logo Section */}
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/20">
-          <Gamepad2 className="w-8 h-8 text-white" />
-        </div>
-        <span className="text-gray-500 text-xl">x</span>
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center shadow-lg shadow-green-500/20">
-          <DollarSign className="w-8 h-8 text-white" />
-        </div>
+      <div className="mb-6">
+        <Image
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-j8wq0BI746YmlyM0h9KiqSOF9GUz2w.png"
+          alt="FreeCash Logo"
+          width={64}
+          height={64}
+          className="rounded-2xl"
+        />
       </div>
 
       {/* Success Message */}
@@ -105,14 +106,14 @@ function ConfirmedStep() {
       <p className="text-gray-400 text-center max-w-xs mb-8 leading-relaxed">
         Je account is vooraf gekwalificeerd voor hogere uitbetalingen.
         Download de app om je{" "}
-        <span className="text-green-400 font-bold">€10 bonus</span> en volledige
+        <span className="text-green-400 font-bold">€20 bonus</span> en volledige
         toegang te activeren.
       </p>
 
       {/* Download Button */}
       <button className="w-full max-w-md bg-green-500 hover:bg-green-400 text-black font-bold py-5 px-6 rounded-2xl transition-all duration-200 mb-3 flex items-center justify-center gap-3 shadow-lg shadow-green-500/30">
         <Download className="w-6 h-6" />
-        <span className="text-lg">DOWNLOAD NU — CLAIM €10 BONUS</span>
+        <span className="text-lg">DOWNLOAD NU — CLAIM €20 BONUS</span>
       </button>
 
       <p className="text-gray-600 text-sm mb-10">
@@ -129,7 +130,7 @@ function ConfirmedStep() {
         <div className="space-y-6">
           <StepItem
             number={1}
-            title="Download & Ontvang Je €10 Bonus"
+            title="Download & Ontvang Je €20 Bonus"
             description="Beschikbaar op iOS & Android – Duurt minder dan 60 seconden"
           />
           <StepItem
