@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { Check, Download, Lock } from "lucide-react";
-import Image from "next/image";
 
 export default function LandingPage() {
   const [step, setStep] = useState<"initial" | "confirmed">("initial");
+
+  console.log("[v0] Current step:", step);
 
   if (step === "confirmed") {
     return <ConfirmedStep />;
@@ -15,7 +16,7 @@ export default function LandingPage() {
     <main className="min-h-screen bg-[#0a0a0a] flex flex-col items-center px-4 py-12">
       {/* Logo Section */}
       <div className="mb-8">
-        <Image
+        <img
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-j8wq0BI746YmlyM0h9KiqSOF9GUz2w.png"
           alt="FreeCash Logo"
           width={80}
@@ -60,7 +61,7 @@ export default function LandingPage() {
         <span className="text-lg">Ik ben 18 of ouder</span>
         <br />
         <span className="text-sm font-normal opacity-80">
-          Directe Uitbetalingen: PayPal, Bankoverschrijving & Crypto
+          Directe Uitbetalingen: PayPal, Bankoverschrijving &amp; Crypto
         </span>
       </button>
 
@@ -83,7 +84,7 @@ function ConfirmedStep() {
     <main className="min-h-screen bg-[#0a0a0a] flex flex-col items-center px-4 py-12">
       {/* Logo Section */}
       <div className="mb-6">
-        <Image
+        <img
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-j8wq0BI746YmlyM0h9KiqSOF9GUz2w.png"
           alt="FreeCash Logo"
           width={64}
@@ -98,7 +99,7 @@ function ConfirmedStep() {
           <Check className="w-6 h-6 text-black" />
         </div>
         <h1 className="text-4xl md:text-5xl font-black text-green-400">
-          {"Je bent binnen!"}
+          Je bent binnen!
         </h1>
       </div>
 
@@ -130,8 +131,8 @@ function ConfirmedStep() {
         <div className="space-y-6">
           <StepItem
             number={1}
-            title="Download & Ontvang Je €20 Bonus"
-            description="Beschikbaar op iOS & Android – Duurt minder dan 60 seconden"
+            title="Download &amp; Ontvang Je €20 Bonus"
+            description="Beschikbaar op iOS &amp; Android – Duurt minder dan 60 seconden"
           />
           <StepItem
             number={2}
@@ -141,7 +142,7 @@ function ConfirmedStep() {
           <StepItem
             number={3}
             title="Laat Je Verdiensten Uitbetalen"
-            description="Directe Uitbetalingen: PayPal, Bankoverschrijving & Crypto"
+            description="Directe Uitbetalingen: PayPal, Bankoverschrijving &amp; Crypto"
           />
         </div>
 
